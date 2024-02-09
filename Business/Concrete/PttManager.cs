@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Abstract;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,14 @@ namespace Business.Concrete
 {
     public class PttManager
     {
-        public void GiveMask(Person person)
+        private IApplicantService _applicantService;
+        public PttManager(IApplicantService applicantService)
         {
-            PersonManager personManager = new PersonManager();
-            if(personManager.CheckPerson(person))
+            _applicantService = applicantService;
+        }
+        public void GiveMask(Person person)
+        {          
+            if(_applicantService.CheckPerson(person))
             {
                 Console.WriteLine(person.FirstName + " için maske verildi");
             }
